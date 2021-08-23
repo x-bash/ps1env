@@ -2,8 +2,9 @@
 
 cli_init(){
     if [ -n "$XRC_CLI_PS1" ]; then
-        printf "%s" "Please reset before init" >&2
-        return 0
+        printf "%s" "Reset before init" >&2
+        cli_reset
+        # return 0
     fi
 
     XRC_CLI_PS1="$PS1"
@@ -16,7 +17,7 @@ ${1:-CLI-ENV}$PS1"
 
 cli_bind(){
     :
-    alias +$1="$2"
+    alias $1="$2"
     XRC_CLI_BIND="$XRC_CLI_BIND
 $1
 "
