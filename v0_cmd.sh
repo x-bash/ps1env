@@ -14,7 +14,7 @@ A
 }
 
 cmd_cli(){
-    cli_init cmd1
+    cli_init "cmd1>"
     cli_bind "+sub1" "cmd sub1"
     cli_bind "+sub2" "cmd sub2"
     cli_bind "+sub3" "cmd sub3"
