@@ -15,14 +15,20 @@ ${1:-CLI-ENV}$PS1"
 cli_bind(){
     :
     alias +$1="$2"
-}
-
-cli_unbind(){
-    :
+    XRC_CLI_BIND="$XRC_CLI_BIND
+$1
+"
 }
 
 cli_reset(){
     PS1="$(XRC_CLI_PS1)"
     XRC_CLI_PS1=
+
+    while read -r line; do
+        [ -z "$line" ] && continue
+        alias "${line}="
+    done <<A
+$XRC_CLI_BIND
+A
 }
 
