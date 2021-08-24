@@ -15,9 +15,9 @@ A
     echo "subcomand: $PARAM_SUBCMD"
 }
 
-cmd_cli(){
-    cli init "cmd1>"
-    cli alias "+sub1" "cmd sub1"
-    cli alias "+sub2" "cmd sub2"
-    cli alias "+sub3" "cmd sub3"
+cmd_ps1env(){
+    ps1env init "cmd1>"
+    ps1env alias "+sub1" "cmd sub1"
+    ps1env alias "+sub2" "cmd sub2"
+    ps1env alias "+sub3" "cmd sub3"
 }

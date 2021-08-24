@@ -4,6 +4,6 @@
 . v0_cmd2.sh
 
 
-cmd_cli
+cmd_ps1env
 
-cmd2_cli
+cmd2_ps1env
