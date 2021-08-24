@@ -16,8 +16,8 @@ A
 }
 
 cmd2_cli(){
-    cli_init "cmd2>"
-    cli_bind "+csub1" "cmd2 csub1"
-    cli_bind "+csub2" "cmd2 csub2"
-    cli_bind "+csub3" "cmd2 csub3"
+    cli init "cmd2>"
+    cli alias "+csub1" "cmd2 csub1"
+    cli alias "+csub2" "cmd2 csub2"
+    cli alias "+csub3" "cmd2 csub3"
 }

@@ -23,8 +23,28 @@ xrc log init cli
 
 CLI_OVERRIDE_ALIAS=""
 
+cli(){
+    local subcmd="${1:?Subcommand}";    shift
 
-cli_init(){
+    case "$subcmd" in
+        init)                   _cli_init "$@" ;;
+        alias)                  _cli_alias "$@" ;;
+        _x_cmd_advise_json)     
+            cat <<A
+{
+    "init": null,
+    "alias": null
+}
+A
+            return 126 ;;
+    esac
+}
+
+xrc advise/v0
+advise cli
+
+
+_cli_init(){
     if [ -n "$XRC_CLI_PS1" ]; then
         cli_log info "Auto reset before init"
         cli_reset
@@ -36,10 +56,10 @@ cli_init(){
     XRC_CLI_PS1="$PS1"
     _cli_set_ps1 "${1:-\$}"
 
-    cli_bind +q "cli_reset"
+    _cli_alias +q "_cli_reset"
 }
 
-cli_bind(){
+_cli_alias(){
     :
     
     local s
@@ -58,7 +78,7 @@ $1
 "
 }
 
-cli_reset(){
+_cli_reset(){
     PS1="${XRC_CLI_PS1}"
     XRC_CLI_PS1=
 
