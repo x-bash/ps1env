@@ -1,0 +1,7 @@
+. v0_cmd.sh
+. v0_cmd2.sh
+
+
+cmd_cli
+
+cmd2_cli

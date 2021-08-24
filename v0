@@ -19,26 +19,40 @@ _cli_set_ps1(){
 $CLR_RED${title}$CLR_0 "
 }
 
+xrc log init cli
+
+CLI_OVERRIDE_ALIAS=""
+
+
 cli_init(){
     if [ -n "$XRC_CLI_PS1" ]; then
-        printf "%s" "Reset before init" >&2
+        cli_log info "Auto reset before init"
         cli_reset
         # return 0
     fi
 
+    CLI_STACK_INC=$(( CLI_STACK_INC + 1 ))
+
     XRC_CLI_PS1="$PS1"
     _cli_set_ps1 "${1:-\$}"
-    
-#     PS1="
-# ${1:-CLI-ENV}$PS1"
 
-    # XRC_CLI_EXIT_CODE="$(trap EXIT)"
-    # trap "cli_reset" EXIT
+    cli_bind +q "cli_reset"
 }
 
 cli_bind(){
     :
+    
+    local s
+    if s=$(alias "$1"); then
+        eval "CLI_OVERRIDE_ALIAS=\"
+\$s
+\$CLI_OVERRIDE_ALIAS
+\"
+"
+    fi
+
     alias $1="$2"
+
     XRC_CLI_BIND="$XRC_CLI_BIND
 $1
 "
@@ -57,7 +71,7 @@ A
 
     XRC_CLI_BIND=
 
-    # trap "$XRC_CLI_EXIT_CODE" EXIT
-    # XRC_CLI_EXIT_CODE=
+    eval "$CLI_OVERRIDE_ALIAS"
+    CLI_OVERRIDE_ALIAS=
 }
 

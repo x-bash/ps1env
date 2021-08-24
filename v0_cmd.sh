@@ -18,5 +18,4 @@ cmd_cli(){
     cli_bind "+sub1" "cmd sub1"
     cli_bind "+sub2" "cmd sub2"
     cli_bind "+sub3" "cmd sub3"
-    cli_bind "+q" "cli_reset"
 }
