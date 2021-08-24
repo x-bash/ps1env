@@ -46,8 +46,8 @@ advise cli
 
 _cli_init(){
     if [ -n "$XRC_CLI_PS1" ]; then
-        cli_log info "Auto reset before init"
-        cli_reset
+        cli_log debug "Auto reset before init"
+        _cli_reset
         # return 0
     fi
 
@@ -63,7 +63,7 @@ _cli_alias(){
     :
     
     local s
-    if s=$(alias "$1"); then
+    if s=$(alias "$1" 2>/dev/null); then
         eval "CLI_OVERRIDE_ALIAS=\"
 \$s
 \$CLI_OVERRIDE_ALIAS
