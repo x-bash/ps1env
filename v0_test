@@ -1,3 +1,5 @@
+# shellcheck shell=sh
+
 . v0_cmd.sh
 . v0_cmd2.sh
 

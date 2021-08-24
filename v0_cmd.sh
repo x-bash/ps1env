@@ -1,3 +1,5 @@
+# shellcheck shell=sh
+
 xrc param/v0
 
 . ./v0
