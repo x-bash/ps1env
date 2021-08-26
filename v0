@@ -56,7 +56,7 @@ _ps1env_init(){
     XRC_PS1ENV_PS1="$PS1"
     _ps1env_set_ps1 "${1:-\$}"
 
-    _ps1env_alias +q "_ps1env_reset"
+    _ps1env_alias :q "_ps1env_reset"
 }
 
 _ps1env_alias(){
