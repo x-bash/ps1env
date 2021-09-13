@@ -51,8 +51,6 @@ _ps1env_init(){
         # return 0
     fi
 
-    PS1ENV_STACK_INC=$(( PS1ENV_STACK_INC + 1 ))
-
     XRC_PS1ENV_PS1="$PS1"
     _ps1env_set_ps1 "${1:-\$}"
 
