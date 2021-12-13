@@ -13,6 +13,7 @@ ps1env(){
     case "$subcmd" in
         init)                   ___x_cmd_ps1env_init "$@" ;;
         alias)                  ___x_cmd_ps1env_alias "$@" ;;
+        reset)                  ___x_cmd_ps1env_reset "$@" ;;
         _x_cmd_advise_json)     
             cat <<A
 {
@@ -30,11 +31,7 @@ xrc advise/v0
 advise ps1env
 
 ___x_cmd_ps1env_init(){
-    if [ -n "$___X_CMD_PS1ENV_PS1" ]; then
-        ps1env_log debug "Auto reset before init"
-        ___x_cmd_ps1env_reset
-        # return 0
-    fi
+    ___x_cmd_ps1env_reset
 
     ___X_CMD_PS1ENV_PS1="$PS1"
     # _ps1env_set_ps1 "${1:-\$}"
@@ -44,8 +41,6 @@ ___x_cmd_ps1env_init(){
 }
 
 ___x_cmd_ps1env_alias(){
-    :
-    
     local s
     if s=$(alias "$1" 2>/dev/null); then
         eval "___X_CMD_PS1ENV_OVERRIDE_ALIAS=\"
@@ -63,6 +58,16 @@ $1
 }
 
 ___x_cmd_ps1env_reset(){
+
+    if [ -z "$___X_CMD_PS1ENV_PS1" ]; then
+        ps1env_log debug "Reset abort."
+        return 1
+    fi
+
+    ___x_cmd_theme_control_subenv_prompt_clear
+
+    local IFS=""
+
     PS1="${___X_CMD_PS1ENV_PS1}"
     ___X_CMD_PS1ENV_PS1=
 
