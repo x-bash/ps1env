@@ -2,24 +2,8 @@
 
 
 # shellcheck disable=SC3043,SC2034,SC2155
-_ps1env_set_ps1(){
-    local CLR_BOLD="\[$(tput bold)\]"
-    local CLR_UNDERLINE="\[$(tput smul)\]" # \e[0;4m
-    local CLD_DIM="\[$(tput dim)\]"
 
-    local CLR_RED="\[$(tput setaf 1)\]"
-    local CLR_GREEN="\[$(tput setaf 2)\]"
-    local CLR_YELLOW="\[$(tput setaf 3)\]"
-    local CLR_BLUE="\[$(tput setaf 4)\]"
-    local CLR_0="\[$(tput sgr0)\]"
-
-    local title="${1:-\$}"
-
-    PS1="\n$CLR_BOLD$CLR_YELLOW\$(date +%H:%M:%S)  $CLR_0$CLR_UNDERLINE$CLR_GREEN\$PWD$CLR_0  $CLR_BOLD$CLR_BLUE\u$CLR_0 $CLR_BLUE\$(displayLHOSTNAME) $CLR_RED$CLR_BOLD
-$CLR_RED${title}$CLR_0 "
-}
-
-xrc log init ps1env
+x log init ps1env
 
 PS1ENV_OVERRIDE_ALIAS=""
 
@@ -28,7 +12,7 @@ ps1env(){
 
     case "$subcmd" in
         init)                   _ps1env_init "$@" ;;
-        alias)                  _ps1env_alias "$@" ;;
+        alias)                  ___x_cmd_ps1env_alias "$@" ;;
         _x_cmd_advise_json)     
             cat <<A
 {
@@ -43,21 +27,21 @@ A
 xrc advise/v0
 advise ps1env
 
-
 _ps1env_init(){
-    if [ -n "$XRC_PS1ENV_PS1" ]; then
+    if [ -n "$___X_CMD_PS1ENV_PS1" ]; then
         ps1env_log debug "Auto reset before init"
-        _ps1env_reset
+        ___x_cmd_ps1env_reset
         # return 0
     fi
 
-    XRC_PS1ENV_PS1="$PS1"
-    _ps1env_set_ps1 "${1:-\$}"
+    ___X_CMD_PS1ENV_PS1="$PS1"
+    # _ps1env_set_ps1 "${1:-\$}"
+    ___x_cmd_theme_control_subenv_prompt "${1:?Please provide}"
 
-    _ps1env_alias %q "_ps1env_reset"
+    ___x_cmd_ps1env_alias %q "___x_cmd_ps1env_reset"
 }
 
-_ps1env_alias(){
+___x_cmd_ps1env_alias(){
     :
     
     local s
@@ -76,9 +60,9 @@ $1
 "
 }
 
-_ps1env_reset(){
-    PS1="${XRC_PS1ENV_PS1}"
-    XRC_PS1ENV_PS1=
+___x_cmd_ps1env_reset(){
+    PS1="${___X_CMD_PS1ENV_PS1}"
+    ___X_CMD_PS1ENV_PS1=
 
     while read -r line; do
         [ -z "$line" ] && continue
