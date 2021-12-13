@@ -5,13 +5,13 @@
 
 x log init ps1env
 
-PS1ENV_OVERRIDE_ALIAS=""
+___X_CMD_PS1ENV_OVERRIDE_ALIAS=""
 
 ps1env(){
     local subcmd="${1:?Subcommand}";    shift
 
     case "$subcmd" in
-        init)                   _ps1env_init "$@" ;;
+        init)                   ___x_cmd_ps1env_init "$@" ;;
         alias)                  ___x_cmd_ps1env_alias "$@" ;;
         _x_cmd_advise_json)     
             cat <<A
@@ -27,7 +27,7 @@ A
 xrc advise/v0
 advise ps1env
 
-_ps1env_init(){
+___x_cmd_ps1env_init(){
     if [ -n "$___X_CMD_PS1ENV_PS1" ]; then
         ps1env_log debug "Auto reset before init"
         ___x_cmd_ps1env_reset
@@ -46,16 +46,16 @@ ___x_cmd_ps1env_alias(){
     
     local s
     if s=$(alias "$1" 2>/dev/null); then
-        eval "PS1ENV_OVERRIDE_ALIAS=\"
+        eval "___X_CMD_PS1ENV_OVERRIDE_ALIAS=\"
 \$s
-\$PS1ENV_OVERRIDE_ALIAS
+\$___X_CMD_PS1ENV_OVERRIDE_ALIAS
 \"
 "
     fi
 
     alias $1="$2"
 
-    XRC_PS1ENV_BIND="$XRC_PS1ENV_BIND
+    ___X_CMD_PS1ENV_BIND="$___X_CMD_PS1ENV_BIND
 $1
 "
 }
@@ -68,12 +68,12 @@ ___x_cmd_ps1env_reset(){
         [ -z "$line" ] && continue
         unalias "${line}"
     done <<A
-$XRC_PS1ENV_BIND
+$___X_CMD_PS1ENV_BIND
 A
 
-    XRC_PS1ENV_BIND=
+    ___X_CMD_PS1ENV_BIND=
 
-    eval "$PS1ENV_OVERRIDE_ALIAS"
-    PS1ENV_OVERRIDE_ALIAS=
+    eval "$___X_CMD_PS1ENV_OVERRIDE_ALIAS"
+    ___X_CMD_PS1ENV_OVERRIDE_ALIAS=
 }
 
