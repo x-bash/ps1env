@@ -68,7 +68,8 @@ ___x_cmd_ps1env_reset(){
 
     local IFS=""
 
-    PS1="${___X_CMD_PS1ENV_PS1}"
+    # Donot recover
+    # PS1="${___X_CMD_PS1ENV_PS1}"
     ___X_CMD_PS1ENV_PS1=
 
     while read -r line; do
