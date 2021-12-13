@@ -24,6 +24,8 @@ A
     esac
 }
 
+# Section: advise
+
 xrc advise/v0
 advise ps1env
 
@@ -77,3 +79,4 @@ A
     ___X_CMD_PS1ENV_OVERRIDE_ALIAS=
 }
 
+# EndSection
