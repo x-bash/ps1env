@@ -152,7 +152,7 @@ ___x_cmd_theme_control_env_prompt(){
         _key="${s%%"${DICT_SEP}"*}"
         s="${s#*"${DICT_SEP}"}"
         _res="eval \"___x_cmd_theme_style ${1-"dfg-yellow"} $_key${3-': '}\" && \
-              eval \"___x_cmd_theme_style ${2-"rgbfg-008"} ${s%%"${DICT_SEP}"*}\" && \
+              eval \"___x_cmd_theme_style ${2-"hfg-black"} ${s%%"${DICT_SEP}"*}\" && \
               printf ${4-' '} && $_res"
         s="${s#*"${DICT_SEP}"}"
         [ $i = '2' ] && break
