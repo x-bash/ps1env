@@ -90,9 +90,9 @@ A
 ___x_cmd_theme_control_env(){
     case "$#" in
         #TODO: use ldict to dump.
-        0)      ___x_cmd_ldict_dump ___X_CMD_THEME_ENV            ;;
-        1)      ___x_cmd_ldict_get  ___X_CMD_THEME_ENV "$1"       ;;
-        2)      ___x_cmd_ldict_put  ___X_CMD_THEME_ENV "$1" "$2"  ;;
+        0)      ___x_cmd_ldict_dump     ___X_CMD_THEME_ENV            ;;
+        1)      ___x_cmd_ldict_get      ___X_CMD_THEME_ENV "$1"       ;;
+        2)      ___x_cmd_ldict_unshift  ___X_CMD_THEME_ENV "$1" "$2"  ;;
         *)      printf "%s\n" "___x_cmd_theme_control_env [key] [val]" >&2
     esac
 }
