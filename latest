@@ -48,7 +48,11 @@ ___x_cmd_ps1env_alias(){
 "
     fi
 
-    alias $1="$2"
+    if [ -n "$ZSH_VERSION" ]; then
+        alias -- $1="$2"
+    else
+        alias $1="$2"
+    fi
 
     ___X_CMD_PS1ENV_BIND="$___X_CMD_PS1ENV_BIND
 $1
